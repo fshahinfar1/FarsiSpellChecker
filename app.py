@@ -1,5 +1,5 @@
 import sys
-from language_model_gen import generate_lang_model, save_model
+from src.lm.language_model_gen import generate_lang_model, save_model
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
         return
    
     model = generate_lang_model(N, lbl_train)
-    save_model(model, './{0}.{1}gram.lm'.format(model_prefix, N))
+    save_model(model, N, './{0}.{1}gram.lm'.format(model_prefix, N))
 
 
 if __name__ == '__main__':

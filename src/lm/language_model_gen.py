@@ -1,7 +1,8 @@
 import os
 from math import log10
-from tools.farsi_tokenizer import tokenize
-from constants import *
+from ..tools.farsi_tokenizer import tokenize
+from ..tools.farsi_normalizer import *
+from ..constants import *
 
 def load_train_text(train_path):
     if os.path.isfile(train_path):
@@ -16,6 +17,10 @@ def load_train_text(train_path):
             txt = inpfile.read()
         train_text.append(txt)
     train_text = '\n'.join(train_text)
+    train_text = normalize_chars(train_text)
+    train_text = clean_punctuation(train_text)
+    train_text = clean_numbers(train_text)
+    train_text = clean_blacklist(train_text)
     return train_text
 
 
@@ -36,7 +41,7 @@ def count_grams(n, train_text):
             prefix = tokens[i: i + n - 1]
             if SEND_SYMBOL in prefix:
                 continue
-            token = tokens[i + n]
+            token = tokens[i + n - 1]
             prefix = '|'.join(prefix)
             sub_dict = tkn_freq.get(prefix)
             if sub_dict is None:
@@ -69,7 +74,7 @@ def generate_lang_model(n, train_path, alpha=1, log_space=True):
         model['<TRUEUNK>'] = 1 / (total_tokens + V)
     else:
         for prefix in tkn_freq:
-            denom = sum(tkn_freq[prexif].values())
+            denom = sum(tkn_freq[prefix].values())
             for token, count in tkn_freq[prefix].items():
                 if log_space:
                     p = log10(count + 1) - log10(denom + V)
