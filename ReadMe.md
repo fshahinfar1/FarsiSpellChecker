@@ -33,4 +33,4 @@ test set of training, development and testing.
 1) Some data from HamshahriOnline has been gathered. (it is confiremed that this data has noise.)
 2) Some data from Virgool has been gathered.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
-4) 
+4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1

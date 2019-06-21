@@ -1,3 +1,6 @@
+from ..constants import ALPHABET
+
+
 def edit_ditance(w1, w2):
     l1 = len(w1)
     l2 = len(w2)

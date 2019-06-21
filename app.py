@@ -3,7 +3,6 @@ from operator import itemgetter
 from src.lm.language_model_gen import generate_lang_model, save_model, load_train_text
 from src.lm.lm_model import LMModel
 from src.tools.farsi_tokenizer import tokenize
-from src.constants import ALPHABET
 from src.tools.edit_distant import generate_all_edist_words
 
 
@@ -60,6 +59,31 @@ def find_mistaken_words():
             out.write(line+'\n')
 
 
+def interactive():
+    argv = sys.argv
+    argc = len(argv)
+    if argc < 2:
+        print('arg1: path to LM\n')
+        return
+    model_path = argv[1]
+    model = LMModel(0)
+    model.load_from_file(model_path)
+    while True:
+        line = input()
+        tokens = tokenize(line)
+        mistakes = set()
+        for tkn in tokens:
+            if tkn not in model._model:
+                mistakes.add(tkn)
+        for misspelled in mistakes:
+            possible_words = generate_all_edist_words(misspelled, 2)
+            possible_words = filter(lambda x: x in model._model, possible_words)
+            line = f'{misspelled}: '
+            for suggested in possible_words:
+                line += f'{suggested}, '
+            print(line)
+
+
 def main():
     print('1: generate lm\n2: generate mistake words list\n3: interactive')
     cmd = int(input())
@@ -67,6 +91,8 @@ def main():
         generate_lm()
     elif cmd == 2:
         find_mistaken_words()
+    elif cmd == 3:
+        interactive()
 
 
 if __name__ == '__main__':
