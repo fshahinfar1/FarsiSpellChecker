@@ -1,7 +1,7 @@
 # Farsi Spell Checker
 ## Chosen algorithm
 LM: 3-gram with backoff and turing-good normalization.
-CM: Noisy channel with naive bayes.
+CM: Noisy channel with naive bayes. 
 ## How it is going to be trained
 1) Gather data of normal farsi writtings. (Normal data set)
 2) Gather data with possible mistakes. (Noisy data set)
@@ -29,3 +29,8 @@ the misspelled word.
 After creating the csv file its data should be splitted into three
 test set of training, development and testing.
 
+## Progress
+1) Some data from HamshahriOnline has been gathered. (it is confiremed that this data has noise.)
+2) Some data from Virgool has been gathered.
+3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
+4) 

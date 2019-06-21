@@ -104,14 +104,14 @@ def load_model(file_addr, log_space=True):
         term_ind = 0
         while term_ind < size and header[term_ind] != ',':
             term_ind += 1
-        n = int(header[9:term_ind])
+        n = int(header[8:term_ind])
         term_ind += 13
         begin = term_ind
         while term_ind < size and header[term_ind] != ',':
             term_ind += 1
         is_log_space = header[begin:term_ind]
         is_log_space = True if is_log_space == 'True' else False
-        print('model in log space:', is_log_space)
+        # print('model in log space:', is_log_space)
         for line in inpfile:
             index = -1
             while line[index] != '|':

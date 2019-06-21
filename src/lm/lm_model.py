@@ -1,5 +1,5 @@
 from operator import itemgetter
-from language_model_gen import *
+from .language_model_gen import *
 
 
 class LMModel:
