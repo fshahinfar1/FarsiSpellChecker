@@ -42,3 +42,6 @@ test set of training, development and testing.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
 4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1.
 
+## Liscense
+GPL V3
+Read LICENSE.txt
