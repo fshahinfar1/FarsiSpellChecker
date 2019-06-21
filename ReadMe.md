@@ -1,7 +1,14 @@
 # Farsi Spell Checker
+## Disclaimer
+1) This is a work-in-progress project. (WIP)
+2) The data sets and trained models are not included in this
+repository. (Mostly because their size were about 800MB.)
+3) The procedure described below may change.
+
 ## Chosen algorithm
 LM: 3-gram with backoff and turing-good normalization.
-CM: Noisy channel with naive bayes. 
+CM: Noisy channel with naive bayes.
+
 ## How it is going to be trained
 1) Gather data of normal farsi writtings. (Normal data set)
 2) Gather data with possible mistakes. (Noisy data set)
@@ -33,4 +40,5 @@ test set of training, development and testing.
 1) Some data from HamshahriOnline has been gathered. (it is confiremed that this data has noise.)
 2) Some data from Virgool has been gathered.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
-4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1
+4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1.
+
