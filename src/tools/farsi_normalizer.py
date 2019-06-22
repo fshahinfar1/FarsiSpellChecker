@@ -14,7 +14,7 @@ def normalize_chars(txt):
 def clean_punctuation(txt):
     punctuation = ('"', "'", ')', '(', '!', '.', ',', '،',
     '«', '»', '\\', '/', 'ˈ', '-', '_', '*', ']', '[', '|', 'ـ',
-    '?', '؟')
+    '?', '؟', '(', '.', ';', ':', '؛')
     for c in punctuation:
         txt = txt.replace(c, '')
     return txt

@@ -32,7 +32,7 @@ class FSpellChecker:
                     self.max_edit_distance)
             possible_words = filter(lambda x: x in model._model, possible_words)
             top_k = [(word, model.predict(word)) for word in possible_words] 
-            top_k.sort(key=itemgetter(1))
+            top_k.sort(key=itemgetter(1), reverse=True) # descending order
             top_k = top_k[:self.max_suggestions]
             for x in top_k:
                 result.suggestions.append(x)

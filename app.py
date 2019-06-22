@@ -36,8 +36,8 @@ def find_mistaken_words():
     input_files = argv[1]
     outfile = argv[2]
     txt = load_train_text(input_files) 
-    spell_checker = FSpellChecker()
-    spell_checker.max_edit_distance = 1
+    spell_checker = FSpellChecker(2) # suggest 2 words
+    spell_checker.max_edit_distance = 1 # maximum edit distance 1
     corrections = spell_checker.spell_check(txt)
     comulation = dict()
     suggestions = dict()
