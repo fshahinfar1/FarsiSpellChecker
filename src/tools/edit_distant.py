@@ -17,25 +17,37 @@ def edit_ditance(w1, w2):
 
 
 def generate_all_edist_words(word, dist):
+    """
+    generate all words with edit distance of `dist`
+    1) replace with new chars
+    2) remove a char
+    3) insert a char
+    """
     length = len(word)
     if length < dist:
         return generate_all_edist_words(word, length)
     if dist == 1:
         result = list()
+        # substitude a character of word with `ch`
         for ch in ALPHABET:
             tmp = [list(word) for i in range(length)]
             for i in range(length):
                 tmp[i][i] = ch
             tmp = [''.join(x) for x in tmp]
             result += tmp
+        # remove a char
+        for i in range(length):
+            result.append(word[:i]+word[i+1:])
+        # insert a char
+        for ch in ALPHABET:
+            for i in range(length):
+                result.append(word[:i]+ch+word[i:])
         return set(result)
     else:
         prev_res = generate_all_edist_words(word, dist - 1)
         result = set()
         for item in prev_res:
-            for ch in ALPHABET:
-                for i in range(length):
-                    new_word = item[:i] + ch + item[i+1:]
-                    result.add(new_word)
+            tmp = generate_all_edist_words(item, 1)
+            result.update(tmp)
         return result
 
