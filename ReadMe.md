@@ -6,7 +6,10 @@ repository. (Mostly because their size were about 800MB.)
 3) The procedure described below may change.
 
 ## Chosen algorithm
+(The following is not implemented yet!)
+
 LM: 3-gram with backoff and turing-good normalization.
+
 CM: Noisy channel with naive bayes.
 
 ## How it is going to be trained
@@ -41,6 +44,12 @@ test set of training, development and testing.
 2) Some data from Virgool has been gathered.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
 4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1.
+
+## Some results
+1. جورن|1:('جوان', -3.8090884102661104);('جورج', -4.763630536469236)
+2. ظورف|1:('ظرف', -3.962282228494659);('دورف', -6.0673664255091415)
+3. مشهد●|1:('مشهد', -4.073379409291665);('مشهدی', -5.40225468843409)
+4. می‌شینیم|4:('می بینیم', -4.4239137490229545);('می نشینیم', -5.89127516645346)
 
 ## Liscense
 GPL V3
