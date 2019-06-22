@@ -4,6 +4,7 @@ from src.lm.language_model_gen import generate_lang_model, save_model, load_trai
 from src.lm.lm_model import LMModel
 from src.tools.farsi_tokenizer import tokenize
 from src.tools.edit_distant import generate_all_edist_words
+from src.farsi_spell_checker import FSpellChecker
 
 
 def generate_lm():
@@ -29,33 +30,26 @@ def generate_lm():
 def find_mistaken_words():
     argv = sys.argv
     argc = len(argv)
-    if argc < 4:
-        print('arg1: path to LM \narg2: path to input files\n3: output\n')
+    if argc < 3:
+        print('arg1: path to input files\narg2: output\n')
         return
-    model_path = argv[1]
-    input_files = argv[2]
-    outfile = argv[3]
-    model = LMModel(0)
-    model.load_from_file(model_path)
+    input_files = argv[1]
+    outfile = argv[2]
     txt = load_train_text(input_files) 
-    tokens = tokenize(txt) 
-    mistakes = dict()
-    for tkn in tokens:
-        if tkn not in model._model:
-            mistakes[tkn] = mistakes.get(tkn, 0) + 1
+    spell_checker = FSpellChecker()
+    spell_checker.max_edit_distance = 1
+    corrections = spell_checker.spell_check(txt)
+    comulation = dict()
     suggestions = dict()
-    for tkn in mistakes:
-        # all words with edit distant of 1
-        possible_words = generate_all_edist_words(tkn, 1)
-        possible_words = filter(lambda x: x in model._model, possible_words)
-        if suggestions.get(tkn) is None:
-            suggestions[tkn] = list()
-        for suggestion in possible_words:
-           suggestions[tkn].append(suggestion) 
-    items = sorted(mistakes.items(), key=itemgetter(1), reverse=True)
+    for mistake in corrections:
+        tkn = mistake.token
+        comulation[tkn] = comulation.get(tkn, 0) + 1
+        if tkn not in suggestions:
+            suggestions[tkn] = mistake.suggestions
     with open(outfile, 'w') as out:
-        for tkn, c in items:
-            line = f'{tkn}|{c}:' + ';'.join(suggestions[tkn])
+        for tkn, c in comulation.items():
+            suggestion = map(str, suggestions[tkn])
+            line = f'{tkn}|{c}:' + ';'.join(suggestion)
             out.write(line+'\n')
 
 
