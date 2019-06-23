@@ -34,7 +34,12 @@ class LMModel:
         self._fill_model(tmp_model)
 
     def predict(self, token):
-        tkns = token.split('|')
+        if isinstance(token, list):
+            tkns = token
+        else:
+            tkns = token.split('|')
+        if len(tkns) < self.n:
+            raise Exception('need more tokens for predicting')
         root = self._model
         for tkn in tkns:
             if tkn in root: 
@@ -44,7 +49,8 @@ class LMModel:
                 break
             else:
                 # backoff
-                raise Exception('Can not calculate probablity for given phrase')
+                # raise Exception('Can not calculate probablity for given phrase')
+                return 1e-7
         return root
 
     def get_token_probability_list(self, prefix='', filter_func=None):
