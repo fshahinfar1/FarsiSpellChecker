@@ -38,8 +38,12 @@ class LMModel:
             tkns = token
         else:
             tkns = token.split('|')
-        if len(tkns) < self.n:
+        count_tkns = len(tkns)
+        if count_tkns < self.n:
             raise Exception('need more tokens for predicting')
+        if count_tkns > self.n:
+            begin = count_tkns - self.n
+            tkns = tkns[begin:]
         root = self._model
         for tkn in tkns:
             if tkn in root: 
