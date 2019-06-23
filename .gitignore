@@ -152,3 +152,4 @@ resources/*
 models/*
 spelling_errors.txt
 spelling_errors_3gram.txt
+spelling_errors_3gram_bkoff.txt

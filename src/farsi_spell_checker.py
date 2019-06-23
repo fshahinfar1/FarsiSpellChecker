@@ -1,6 +1,7 @@
 from .config import *
 from operator import itemgetter
 from .lm.lm_model import LMModel
+from .lm.lm_collection import LMCollection
 from .tools.farsi_tokenizer import tokenize
 from .tools.edit_distant import generate_all_edist_words
 
@@ -20,14 +21,19 @@ class FSpellChecker:
     def __init__(self, max_suggestions=1):
         self.max_suggestions = max_suggestions
         self.model_n_gram = 3
-        self.uni_model = LMModel(3)
-        self.uni_model.load_from_file(tri_gram_path)
-        self.dictionary = LMModel(1)
-        self.dictionary.load_from_file(uni_gram_path)
+        # loading these data is time consuming
+        self.model_col = LMCollection()
+        self.model_col.load_model(uni_gram_path)
+        self.model_col.set_lambda(0.2)
+        self.model_col.load_model(bi_gram_path)
+        self.model_col.set_lambda(0.5)
+        self.model_col.load_model(tri_gram_path)
+        self.model_col.set_lambda(0.3)
+        self.dictionary = self.model_col.get_model(0) 
         self.max_edit_distance = 2 # it is cpu consuming
 
     def spell_check(self, txt):
-        model = self.uni_model
+        model = self.model_col
         dictionary = self.dictionary
         tokens = tokenize(txt)
         cntx_size = self.model_n_gram
