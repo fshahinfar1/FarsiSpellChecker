@@ -30,7 +30,7 @@ def clean_numbers(txt):
 
 
 def clean_blacklist(txt):
-    blacklist = ('', '\r', '	')
+    blacklist = ('', '\r', '	', '●')
     for c in blacklist:
         txt = txt.replace(c, '')
     txt = txt.replace('\t', ' ')
