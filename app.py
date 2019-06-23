@@ -63,7 +63,7 @@ def interactive():
     spell_checker = FSpellChecker(2) # suggest 2 words
     spell_checker.max_edit_distance = 2
     while True:
-        line = input()
+        line = input("> ")
         size = len(line)
         t_start = time()
         corrections = spell_checker.spell_check(line)

@@ -44,12 +44,16 @@ test set of training, development and testing.
 2) Some data from Virgool has been gathered.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
 4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1.
+5) Use 3-gram model with backoff for suggesting spelling errors.
 
 ## Some results
 1. جورن|1:('جوان', -3.8090884102661104);('جورج', -4.763630536469236)
 2. ظورف|1:('ظرف', -3.962282228494659);('دورف', -6.0673664255091415)
 3. مشهد●|1:('مشهد', -4.073379409291665);('مشهدی', -5.40225468843409)
 4. می‌شینیم|4:('می بینیم', -4.4239137490229545);('می نشینیم', -5.89127516645346)
+
+## Issues
+1) Loading language models into ram takes time.
 
 ## Liscense
 GPL V3
