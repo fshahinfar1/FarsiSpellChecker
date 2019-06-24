@@ -67,6 +67,7 @@ def save_model(model, n, path, log_space):
             stack_item = stack.pop()
             if stack_item == pop_sign:
                 path.pop()
+                continue
             else:
                 node, index = stack_item 
                 if index != no_key:
@@ -79,7 +80,9 @@ def save_model(model, n, path, log_space):
                 else:
                     for byte in path:
                         binfile.write(byte)
-                    bval = pack(pack_str_int, key) 
+                    bkey = pack(pack_str_int, key) 
+                    binfile.write(bkey)
+                    bval = pack(pack_str_float, value)
                     binfile.write(bval)
                     binfile.write(end_of_line)
 
