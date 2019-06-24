@@ -45,6 +45,9 @@ test set of training, development and testing.
 3) 3 language models (1, 2, 3 -grams with laplace smoothing) have been trained.
 4) Find spelling errors by checking 1-gram and suggest words with edit distant of 1.
 5) Use 3-gram model with backoff for suggesting spelling errors.
+6) Start creating a restApi server for connecting with spell checker through HTTP.
+7) Loading language mode is time consuming now, convert it to binary file for
+reducing the space and time.
 
 ## Some results
 1. جورن|1:('جوان', -3.8090884102661104);('جورج', -4.763630536469236)
